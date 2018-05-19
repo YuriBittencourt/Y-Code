@@ -1,4 +1,4 @@
-## Copyright (C) 2018 16105132
+## Copyright (C) 2018 Yuri
 ## 
 ## This program is free software; you can redistribute it and/or modify it
 ## under the terms of the GNU General Public License as published by
@@ -13,13 +13,22 @@
 ## You should have received a copy of the GNU General Public License
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-## Author: Yuri Bittencourt <16105132@l1985738>
-## Created: 2018-04-10
+## -*- texinfo -*- 
+## @deftypefn {} {@var{retval} =} fujiwara (@var{input1}, @var{input2})
+##
+## @seealso{}
+## @end deftypefn
 
-function retval = Fujiwara (input1)
-lst[]=[];
-i=1;
-while (i <= input1.length)
-  lst[i] = ((input1[i]/input1[input1.length]).abs.power(1/i))
+## Author: Yuri F Bittencourt
+## Created: 2018-04-12
 
+function retval = fujiwara (input)
+  values=[];
+  for i=1:length(input)
+    values(i)=power(abs(input(i)/input(1)),1/(i));
+  endfor
+  values
+  retval= 2*max(values);
+  disp("|α| <= ")
+  disp(retval)
 endfunction
