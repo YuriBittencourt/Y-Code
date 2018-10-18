@@ -3,11 +3,11 @@ def mergesort(lst):
         return lst
     a = mergesort(lst[:int(len(lst)/2)])
     b = mergesort(lst[int(len(lst)/2):])
-    res = merge(a,b)
-    return res
+    merged = __merge(a,b)
+    return merged
 
 
-def merge(arr1, arr2):
+def __merge(arr1, arr2):
     merged = []
     while(arr1!=[] and arr2!=[]):
         if(arr1[0] <= arr2[0]):
