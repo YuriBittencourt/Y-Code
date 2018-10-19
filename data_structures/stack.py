@@ -6,7 +6,7 @@ class stack:
         self.__size = 0
         self.__max_capacity = max_capacity
 
-    def get_size(self):
+    def __len__(self):
         return self.__size
 
     def get_max_capacity(self):
@@ -50,6 +50,7 @@ class stack:
         self.__first = None
         self.__size = 0
 
+    #TODO melhorar
     def reverse(self):
         if not self.is_empty():
             temp = self.pop()
@@ -64,34 +65,43 @@ class stack:
         self.__insert_at_bottom(aux)
         self.push(temp)
 
-    #TODO quebrar essa recursão ou algo que retire o __val
-    def count(self, element, __val=0):
+    def count(self, element):
+        res = 0
         if self.is_empty():
-            return __val
+            return res
         if self.has_next():
             item = self.pop()
             if item == element:
-                __val += 1
-            __val = self.count(element, __val)
+                res += 1
+            res += self.count(element)
             self.push(item)
-        return __val
+        return res
 
+    #Todo create copy
+    def copy(self):
+        cpy = stack(self.get_max_capacity())
+        aux = []
+        while not self.is_empty():
+            aux.append(self.pop())
 
-my_stack = stack()
-my_stack.push("world")
-my_stack.push("bar")
-my_stack.push("henlo")
-my_stack.push("bar")
-my_stack.push("foo")
-my_stack.push("bar")
-print(my_stack.count("bar"))
-my_stack.reverse()
-while my_stack.has_next():
-    print(my_stack.pop())
-try:
-    print(my_stack.pop())
-except:
-    print("Epa")
+        while aux:
+            item = aux.pop()
+            cpy.push(item)
+            self.push(item)
+        return cpy
 
-print(my_stack.get_size())
-print(len([0,1]))
+    #Todo create deepcopy
+    def __deepcopy__(self, memodict={}):
+        raise NotImplementedError
+
+    def __eq__(self, other):
+        if (self.is_empty() and other.is_empty()) or (not self.is_empty() and not other.is_empty()):
+            return True
+        if self.top() != other.top():
+            return False
+        item_a = self.pop()
+        item_b = other.pop()
+        equity = self.__eq__(other)
+        self.push(item_a)
+        other.push(item_b)
+        return equity
