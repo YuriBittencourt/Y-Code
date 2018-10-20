@@ -1,3 +1,5 @@
+import copy
+
 class stack:
     def __init__(self, max_capacity=None):
         if max_capacity is not None and max_capacity <1:
@@ -77,8 +79,7 @@ class stack:
             self.push(item)
         return res
 
-    #Todo create copy
-    def copy(self):
+    def __copy__(self):
         cpy = stack(self.get_max_capacity())
         aux = []
         while not self.is_empty():
@@ -90,9 +91,17 @@ class stack:
             self.push(item)
         return cpy
 
-    #Todo create deepcopy
     def __deepcopy__(self, memodict={}):
-        raise NotImplementedError
+        cpy = stack(self.get_max_capacity())
+        aux = []
+        while not self.is_empty():
+            aux.append(self.pop())
+
+        while aux:
+            item = aux.pop()
+            cpy.push(copy.deepcopy(item))
+            self.push(item)
+        return cpy
 
     def __eq__(self, other):
         if self.is_empty() and other.is_empty():

@@ -1,5 +1,5 @@
 from data_structures.stack import stack
-
+import copy
 my_stack = stack()
 my_stack2 = stack()
 print(my_stack==my_stack2)
@@ -13,7 +13,7 @@ my_stack.push("bar")
 my_stack.push("foo")
 my_stack.push("bar")
 my_stack.push("bar")
-my_stack2 = my_stack.copy()
+my_stack2 = copy.copy(my_stack)
 print("joguei fora: ",my_stack.pop(),my_stack.pop())
 print(len(my_stack), len(my_stack2))
 print(my_stack == my_stack2)
@@ -35,4 +35,8 @@ except:
 
 
 print(len(my_stack))
-print(len([0,1]))
+this = ["holy","cow"]
+my_stack.push(this)
+my_stack2 = copy.deepcopy(my_stack)
+this.append("hey")
+print(this,my_stack.top(),my_stack2.top())
