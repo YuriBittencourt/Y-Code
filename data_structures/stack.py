@@ -95,9 +95,11 @@ class stack:
         raise NotImplementedError
 
     def __eq__(self, other):
-        if (self.is_empty() and other.is_empty()) or (not self.is_empty() and not other.is_empty()):
+        if self.is_empty() and other.is_empty():
             return True
-        if self.top() != other.top():
+        if (self.is_empty() and not other.is_empty()) or \
+            (not self.is_empty() and other.is_empty()) or \
+            self.top() != other.top():
             return False
         item_a = self.pop()
         item_b = other.pop()
