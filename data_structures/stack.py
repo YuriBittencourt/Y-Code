@@ -52,32 +52,54 @@ class stack:
         self.__first = None
         self.__size = 0
 
-    #TODO melhorar
     def reverse(self):
-        if not self.is_empty():
-            temp = self.pop()
-            self.reverse()
-            self.__insert_at_bottom(temp)
+        temp = []
+        while not self.is_empty():
+            temp.append(self.pop())
 
-    def __insert_at_bottom(self, aux):
-        if self.is_empty():
-            self.push(aux)
-            return
-        temp = self.pop()
-        self.__insert_at_bottom(aux)
-        self.push(temp)
+        while temp:
+            self.push(temp.pop(0))
 
     def count(self, element):
         res = 0
-        if self.is_empty():
-            return res
-        if self.has_next():
+        if not self.is_empty():
             item = self.pop()
             if item == element:
                 res += 1
             res += self.count(element)
             self.push(item)
         return res
+
+    def remove_ocurrences(self, element, ocurrencies=1):
+        if ocurrencies < 1:
+            raise ValueError("Invalid number of ocurrencies, must be equal or greater than 1, inserted:", ocurrencies)
+        if not self.is_empty():
+            item = self.pop()
+            if item != element:
+                self.remove_ocurrences(element, ocurrencies)
+                self.push(item)
+            else:
+                if ocurrencies == 1:
+                    return
+                self.remove_ocurrences(element, ocurrencies-1)
+
+    def remove_all_ocurrences(self, element):
+        if not self.is_empty():
+            item = self.pop()
+            self.remove_all_ocurrences(element)
+            if item != element:
+                self.push(item)
+
+    def __contains__(self, element):
+        retval = False
+        if not self.is_empty():
+            item = self.pop()
+            if item == element:
+                self.push(item)
+                return True
+            retval = element in self
+            self.push(item)
+        return retval
 
     def __copy__(self):
         cpy = stack(self.get_max_capacity())
