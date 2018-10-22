@@ -3,7 +3,8 @@ import copy
 from random import random
 
 if __name__ == "__main__":
-    print("-" * 50, "\nRunning the stack constructor with size greather than 0 test case")
+    #TODO method test case
+    print("-" * 50, "\nRunning the stack constructor with size greater than 0 test case")
     try:
         my_stack = stack()
         assert type(my_stack) == stack
@@ -20,20 +21,37 @@ if __name__ == "__main__":
         print("Passed!")
     print("-" * 50, "\nRunning the get_max_capacity method test case")
     try:
-        assert my_stack.get_max_capacity()==None
-        assert my_stack2.get_max_capacity()==size
+        assert my_stack.get_max_capacity() is None
+        assert my_stack2.get_max_capacity() == size
         print("Passed!")
     except:
         print("Failed!")
-    print("-" * 50, "\nRunning the is_empty method test case")
+    print("-" * 50, "\nRunning the is_empty and is_full method with empty stack test case")
     try:
         assert my_stack.is_empty()
-        my_stack.push("SOMETHING")
-        assert not my_stack.is_empty()
+        assert not my_stack.is_full()
         print("Passed!")
     except:
         print("Failed!")
-    print("-" * 50)
+    print("-" * 50,"\nRunning the push and pop method test case")
+    try:
+        item = "SOMETHING"
+        my_stack.push(item)
+        assert my_stack.pop() == item
+        print("Passed!")
+    except:
+        print("Failed!")
+    print("-" * 50, "\nRunning the top and has_next method test case")
+    try:
+        assert my_stack.top() is None
+        assert not my_stack.has_next()
+        my_stack.push(item)
+        assert my_stack.top() == item
+        my_stack.push(item)
+        assert my_stack.has_next()
+        print("Passed!")
+    except:
+        print("Failed!")
 
 print(my_stack==my_stack2)
 my_stack.push("world")
