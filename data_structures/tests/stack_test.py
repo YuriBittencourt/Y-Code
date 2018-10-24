@@ -1,24 +1,26 @@
 from data_structures.stack import stack
 import copy
-from random import random
+from random import random, randint
 
 if __name__ == "__main__":
     #TODO method test case
-    print("-" * 50, "\nRunning the stack constructor with size greater than 0 test case")
+    print("-" * 50, "\nRunning the stack constructor test case")
     try:
         my_stack = stack()
         assert type(my_stack) == stack
         size = int(random()*10+1)
         my_stack2 = stack(size)
-        print("Passed!")
+
+        try:
+            stack(int(random() * -10))
+            print("Failed!")
+
+        except:
+            print("Passed!")
+
     except:
         print("Failed!")
-    print("-" * 50, "\nRunning the less than 1 size stack test case")
-    try:
-        stack(int(random()*-10))
-        print("Failed!")
-    except:
-        print("Passed!")
+
     print("-" * 50, "\nRunning the get_max_capacity method test case")
     try:
         assert my_stack.get_max_capacity() is None
@@ -26,21 +28,48 @@ if __name__ == "__main__":
         print("Passed!")
     except:
         print("Failed!")
-    print("-" * 50, "\nRunning the is_empty and is_full method with empty stack test case")
+
+    print("-" * 50, "\nRunning the is_empty and is_full method test case")
     try:
-        assert my_stack.is_empty()
-        assert not my_stack.is_full()
+        my_stack2 = stack(1)
+        assert my_stack2.is_empty()
+        assert not my_stack2.is_full()
+        my_stack2.push(None)
+        assert not my_stack2.is_empty()
+        assert my_stack2.is_full()
         print("Passed!")
     except:
         print("Failed!")
+
     print("-" * 50,"\nRunning the push and pop method test case")
     try:
         item = "SOMETHING"
         my_stack.push(item)
         assert my_stack.pop() == item
+
+        my_stack = stack(randint(1,25))
+        i=0
+        while not my_stack.is_full():
+            my_stack.push(i)
+            i+=1
+        assert my_stack.get_max_capacity() == len(my_stack) and i == my_stack.get_max_capacity()
+        print("here")
+        while not my_stack.is_empty():
+            my_stack.pop()
+            i-=1
+        assert len(my_stack) == i and i==0
         print("Passed!")
     except:
         print("Failed!")
+
+    print("-" * 50, "\nRunning the len method test case")
+    try:
+        assert my_stack2.is_full() and len(my_stack2) == my_stack2.get_max_capacity()
+        assert my_stack.is_empty() and len(my_stack) == 0
+        print("Passed!")
+    except:
+        print("Failed!")
+
     print("-" * 50, "\nRunning the top and has_next method test case")
     try:
         assert my_stack.top() is None
@@ -53,6 +82,19 @@ if __name__ == "__main__":
     except:
         print("Failed!")
 
+    print("-" * 50, "\nRunning the clear method test case")
+    try:
+        assert not my_stack.is_empty()
+        assert my_stack.top() is not None
+        my_stack.clear()
+        assert my_stack.top() == None
+        assert len(my_stack)
+        print("Passed!")
+    except:
+        print("Failed!")
+
+
+exit(0)
 print(my_stack==my_stack2)
 my_stack.push("world")
 print(my_stack==my_stack2)
