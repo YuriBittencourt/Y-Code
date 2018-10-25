@@ -126,15 +126,22 @@ class stack:
         return cpy
 
     def __eq__(self, other):
+        if other is None or \
+                self.get_max_capacity() != other.get_max_capacity() or \
+                len(self) != len(other):
+            return False
+        return self.__eq(other)
+
+    def __eq(self,other):
         if self.is_empty() and other.is_empty():
             return True
         if (self.is_empty() and not other.is_empty()) or \
             (not self.is_empty() and other.is_empty()) or \
-            self.top() != other.top():
+                self.top() != other.top():
             return False
         item_a = self.pop()
         item_b = other.pop()
-        equity = self.__eq__(other)
+        equity = self.__eq(other)
         self.push(item_a)
         other.push(item_b)
         return equity
