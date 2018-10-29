@@ -12,4 +12,4 @@
 3. [Rota simples](RotaSimples.java) Da origem ao ponto memorizando oque já fora calculado, iterativo;
 
 Note que o resultado será o mesmo em todas as execuções, o tempo de execução pode variar.
-[ ] Refazer os algoritmos em Python 3.X
+- [ ] Refazer os algoritmos em Python 3.X
