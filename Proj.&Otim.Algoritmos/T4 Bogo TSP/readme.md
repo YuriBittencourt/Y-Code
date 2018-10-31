@@ -22,5 +22,5 @@ A primeira linha conterá o número de cidades, as linhas subsequentes serão as
 ```
 
 - [ ] Inserir um exemplo de saída
-- [ ] Talvez migrar o split e formato do arquivo para aceitar cdades com nomes separados por espaço.
+- [ ] Modificar o split e formato do arquivo para aceitar cidades com nomes separados por espaço.
 - [ ] Criar imagens para explicação gráfica aqui. 
