@@ -30,11 +30,47 @@ class queue:
     def enqueue(self, item):
         if self.is_full():
             raise (OverflowError("Stack is full, could not put", item))
-        # TODO CREATE ME
-        pass
+        if self.is_empty():
+            self.__next = [item, None]
+            self.__size += 1
+            return
+        aux = self.__next
+        while aux[1] is not None:
+            aux = aux[1]
+        aux[1] = [item, None]
+        self.__size += 1
 
     def dequeue(self):
         if self.is_empty():
             raise(ValueError("Stack is empty"))
-        # TODO CREATE ME
-        pass
+        aux = self.__next[0]
+        self.__next = self.__next[1]
+        self.__size -= 1
+        return aux
+
+    def peek(self):
+        if self.is_empty():
+            return None
+        return self.__next[0]
+
+    def clear(self):
+        self.__next = None
+        self.__size = 0
+
+    def reverse(self):
+        if not self.is_empty():
+            item = self.dequeue()
+            self.reverse()
+            self.enqueue(item)
+
+    def count(self, element):
+        res = 0
+        items = []
+        while not self.is_empty():
+            items.append(self.dequeue())
+            if items[-1] == element:
+                res += 1
+        for item in items:
+            self.enqueue(item)
+        return res
+
