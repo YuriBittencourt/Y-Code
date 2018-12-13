@@ -1,3 +1,6 @@
+import copy
+
+
 class queue:
     def __init__(self, max_capacity=None):
         if max_capacity is not None and max_capacity <1:
@@ -74,3 +77,71 @@ class queue:
             self.enqueue(item)
         return res
 
+    def to_list(self):
+        lst = []
+        while not self.is_empty():
+            lst.append(self.dequeue())
+        for item in lst:
+            self.enqueue(item)
+        return lst
+
+    def remove_ocurrences(self, element, ocurrencies=1):
+        if ocurrencies < 1:
+            raise ValueError("Invalid number of ocurrencies, must be equal or greater than 1, inserted:", ocurrencies)
+        lst = self.to_list()
+        if element not in lst:
+            return
+        for i in lst:
+            if i == element:
+                lst.remove(i)
+                ocurrencies -= 1
+                if ocurrencies == 0:
+                    break
+        self.clear()
+        for i in lst:
+            self.enqueue(i)
+
+    def remove_all_ocurrences(self, element):
+        lst = self.to_list()
+        if element not in lst:
+            return
+        for i in lst:
+            if i == element:
+                lst.remove(i)
+        self.clear()
+        for i in lst:
+            self.enqueue(i)
+
+    def __contains__(self, element):
+        lst = self.to_list()
+        if element in lst:
+            return True
+        return False
+
+    def __copy__(self):
+        cpy = queue(self.get_max_capacity())
+        lst = self.to_list()
+        for i in lst:
+            cpy.enqueue(i)
+        return cpy
+
+    def __deepcopy__(self):
+        cpy = queue(self.get_max_capacity())
+        lst = self.to_list()
+        for i in lst:
+            cpy.enqueue(copy.deepcopy(i))
+        return cpy
+
+    def __eq__(self, other):
+        if (other is None or
+            self.get_max_capacity() != other.get_max_capacity() or
+                len(self) != len(other)):
+            return False
+        return self.__eq(other)
+
+    def __eq(self, other):
+        self_contents = self.to_list()
+        other_contents = other.to_list()
+        if self_contents == other_contents:
+            return True
+        return False
