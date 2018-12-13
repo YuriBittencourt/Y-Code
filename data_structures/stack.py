@@ -113,7 +113,7 @@ class stack:
             self.push(item)
         return cpy
 
-    def __deepcopy__(self, memodict={}):
+    def __deepcopy__(self):
         cpy = stack(self.get_max_capacity())
         aux = []
         while not self.is_empty():
