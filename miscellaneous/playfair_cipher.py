@@ -17,8 +17,8 @@ class PlayfairCipher:
         if not self.key.isalpha():
             raise ValueError("The input key must contain only letters.")
 
-        # Remove the letter chosen above from our alphabet
-        self.alphabet_keys = alphabet_keys.replace(switch_keys[0], "")
+        # Sanitize and remove the letter chosen above from our alphabet
+        self.alphabet_keys = sanitize_string(alphabet_keys).replace(switch_keys[0], "")
         self.switch_keys = switch_keys
 
         # build matrix
@@ -228,7 +228,8 @@ if __name__ == "__main__":
               "\n \t \t OPTION can be -e to encrypt or -d to decrypt" +
               "\n \t \t KEY is the encryption/decryption key, and must be a not empty string with only roman letters" +
               "\n \t \t MESSAGE is the message to be encrypted/decrypted and must be a not empty string with only "
-              "roman letters")
+              "roman letters" +
+              "\n \t if there are spaces in the MESSAGE or KEY strings, encase those strings with quotes")
         exit(0)
     if len(sys.argv) != 4:
         print("Invalid number of parameters")
