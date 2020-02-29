@@ -1,5 +1,6 @@
 import string
 import unicodedata
+import sys
 
 
 class PlayfairCipher:
@@ -217,3 +218,29 @@ def remove_accents(text):
     text = text.encode('ASCII', 'ignore')
     # convert back to utf-8 and it is done.
     return text.decode('utf-8')
+
+
+if __name__ == "__main__":
+    if len(sys.argv) == 2 and sys.argv[1] == "-h":
+        print("execute the script with the following arguments: " +
+              "\n \t OPTION KEY MESSAGE " +
+              "\n \t where:" +
+              "\n \t \t OPTION can be -e to encrypt or -d to decrypt" +
+              "\n \t \t KEY is the encryption/decryption key, and must be a not empty string with only roman letters" +
+              "\n \t \t MESSAGE is the message to be encrypted/decrypted and must be a not empty string with only "
+              "roman letters")
+        exit(0)
+    if len(sys.argv) != 4:
+        print("Invalid number of parameters")
+        exit(0)
+
+    cipher = PlayfairCipher(sys.argv[2])
+    if sys.argv[1] == '-e':
+        print(cipher.encrypt(sys.argv[3]))
+        exit(0)
+
+    if sys.argv[1] == '-d':
+        print(cipher.decrypt(sys.argv[3]))
+        exit(0)
+
+    print("invalid option '{}'".format(sys.argv[1]))
